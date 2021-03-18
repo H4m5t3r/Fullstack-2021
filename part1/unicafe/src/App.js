@@ -10,7 +10,6 @@ const Statistics = (props) => {
   const { good, neutral, bad } = props.feedback
   return (
     <div>
-      <h1>statistics</h1>
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
@@ -73,6 +72,7 @@ const App = () => {
       <Button handleClick={handleGood} text="good" />
       <Button handleClick={handleNeutral} text="neutral" />
       <Button handleClick={handleBad} text="bad" />
+      <h1>statistics</h1>
       <Statistics feedback={feedback} />
     </div>
   )
