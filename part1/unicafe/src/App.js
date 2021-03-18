@@ -15,15 +15,21 @@ const Statistics = (props) => {
   } else {
     return (
       <div>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all <Total feedback={props.feedback} /></p>
-        <p>average <Average feedback={props.feedback} /></p>
-        <p>positive <Positive positive={good} feedback={props.feedback} />%</p>
+        <Statistic text="good" value ={good} />
+        <Statistic text="neutral" value ={neutral} />
+        <Statistic text="bad" value ={bad} />
+        <Statistic text="all" value ={<Total feedback={props.feedback} />} />
+        <Statistic text="average" value ={<Average feedback={props.feedback} />} />
+        <Statistic text="positive" value ={<Positive feedback={props.feedback} />} />
       </div>
     )
   }
+}
+
+const Statistic = (props) => {
+  return (
+    <p>{props.text} {props.value}</p>
+  )
 }
 
 const Total = (props) => {
@@ -43,9 +49,10 @@ const Average = (props) => {
 const Positive = (props) => {
   const { good, neutral, bad } = props.feedback
   if (good + neutral + bad > 0) {
-    return(good / (good + neutral + bad) * 100)
+    return(`${good / (good + neutral + bad) * 100}%`)
+  } else {
+    return (`${0}%`)
   }
-  return (0)
 }
 
 const App = () => {
