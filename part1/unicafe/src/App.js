@@ -15,12 +15,16 @@ const Statistics = (props) => {
   } else {
     return (
       <div>
-        <Statistic text="good" value ={good} />
-        <Statistic text="neutral" value ={neutral} />
-        <Statistic text="bad" value ={bad} />
-        <Statistic text="all" value ={<Total feedback={props.feedback} />} />
-        <Statistic text="average" value ={<Average feedback={props.feedback} />} />
-        <Statistic text="positive" value ={<Positive feedback={props.feedback} />} />
+        <table>
+          <tbody>
+            <Statistic text="good" value ={good} />
+            <Statistic text="neutral" value ={neutral} />
+            <Statistic text="bad" value ={bad} />
+            <Statistic text="all" value ={<Total feedback={props.feedback} />} />
+            <Statistic text="average" value ={<Average feedback={props.feedback} />} />
+            <Statistic text="positive" value ={<Positive feedback={props.feedback} />} />
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -28,7 +32,10 @@ const Statistics = (props) => {
 
 const Statistic = (props) => {
   return (
-    <p>{props.text} {props.value}</p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
@@ -49,9 +56,9 @@ const Average = (props) => {
 const Positive = (props) => {
   const { good, neutral, bad } = props.feedback
   if (good + neutral + bad > 0) {
-    return(`${good / (good + neutral + bad) * 100}%`)
+    return(`${good / (good + neutral + bad) * 100} %`)
   } else {
-    return (`${0}%`)
+    return (`${0} %`)
   }
 }
 
