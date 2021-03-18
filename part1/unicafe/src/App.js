@@ -7,14 +7,39 @@ const Button = ({ handleClick, text }) => (
 )
 
 const History = (props) => {
-  const { good, neutral, bad } = props
+  const { good, neutral, bad } = props.feedback
   return (
     <div>
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all <Total feedback={props.feedback} /></p>
+      <p>average <Average feedback={props.feedback} /></p>
+      <p>positive <Positive positive={good} feedback={props.feedback} />%</p>
     </div>
   )
+}
+
+const Total = (props) => {
+  const { good, neutral, bad } = props.feedback
+  return (good + neutral + bad)
+}
+
+const Average = (props) => {
+  const { good, neutral, bad } = props.feedback
+  if (good + neutral + bad > 0) {
+    return ((good * 1 + bad * -1) / (good + bad + neutral))
+  } else {
+    return 0
+  }
+}
+
+const Positive = (props) => {
+  const { good, neutral, bad } = props.feedback
+  if (good + neutral + bad > 0) {
+    return(good / (good + neutral + bad) * 100)
+  }
+  return (0)
 }
 
 const App = () => {
@@ -35,6 +60,12 @@ const App = () => {
     setBad(bad + 1)
   }
 
+  const feedback = {
+    good: good,
+    neutral: neutral,
+    bad: bad
+  }
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -42,7 +73,7 @@ const App = () => {
       <Button handleClick={handleNeutral} text="neutral" />
       <Button handleClick={handleBad} text="bad" />
       <h1>statistics</h1>
-      <History good={good} neutral={neutral} bad={bad} />
+      <History feedback={feedback} />
     </div>
   )
 }
