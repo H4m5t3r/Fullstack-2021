@@ -18,6 +18,7 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState([0, 0, 0, 0, 0, 0])
+  const [anecdoteOfTheDay, setAnecdoteOfTheDay] = useState(0)
 
   const handleNext = () => {
     setSelected(Math.floor(Math.random() * 10) % anecdotes.length)
@@ -27,14 +28,27 @@ const App = () => {
     const copy = [...points]
     copy[selected] = points[selected] + 1
     setPoints(copy)
+    checkAnecdoteOfTheDay()
+  }
+
+  const checkAnecdoteOfTheDay = () => {
+    for (let i = 0; i < anecdotes.length; i++) {
+      if (points[i] > anecdoteOfTheDay) {
+        setAnecdoteOfTheDay(i)
+      }
+    }
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]} votes</p>
       <Button handleClick={handleVote} text="vote" />
       <Button handleClick={handleNext} text="next anecdote" />
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[anecdoteOfTheDay]}</p>
+      <p>has {points[selected]} votes</p>
     </div>
   )
 }
