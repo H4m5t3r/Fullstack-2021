@@ -6,7 +6,7 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const History = (props) => {
+const Statistics = (props) => {
   const { good, neutral, bad } = props.feedback
   return (
     <div>
@@ -73,7 +73,7 @@ const App = () => {
       <Button handleClick={handleNeutral} text="neutral" />
       <Button handleClick={handleBad} text="bad" />
       <h1>statistics</h1>
-      <History feedback={feedback} />
+      <Statistics feedback={feedback} />
     </div>
   )
 }
