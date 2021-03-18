@@ -8,16 +8,22 @@ const Button = ({ handleClick, text }) => (
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props.feedback
-  return (
-    <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all <Total feedback={props.feedback} /></p>
-      <p>average <Average feedback={props.feedback} /></p>
-      <p>positive <Positive positive={good} feedback={props.feedback} />%</p>
-    </div>
-  )
+  if (good + neutral + bad === 0) {
+    return (
+      <div>No feedback given</div>
+    )
+  } else {
+    return (
+      <div>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all <Total feedback={props.feedback} /></p>
+        <p>average <Average feedback={props.feedback} /></p>
+        <p>positive <Positive positive={good} feedback={props.feedback} />%</p>
+      </div>
+    )
+  }
 }
 
 const Total = (props) => {
