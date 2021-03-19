@@ -19,9 +19,11 @@ const Header = ({ name }) => {
 
 const Content = ({ parts }) => {
   return (
-    parts.map(function(parts) {
+    parts.map(parts => {
       return (
-        <Part name={parts.name} exercises={parts.exercises} />
+        <li key={parts.id}>
+          <Part name={parts.name} exercises={parts.exercises} />
+        </li>
       )
     })
   )
