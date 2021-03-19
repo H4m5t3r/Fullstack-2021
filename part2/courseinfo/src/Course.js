@@ -26,7 +26,7 @@ const Course = ({courses}) => {
     return (
       parts.map(parts => {
         return (
-          <Part key = {parts.id} name={parts.name} exercises={parts.exercises} />
+          <Part key={parts.id} name={parts.name} exercises={parts.exercises} />
         )
       })
     )
