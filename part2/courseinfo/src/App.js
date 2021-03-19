@@ -41,10 +41,16 @@ const Part = ({name, exercises}) => {
 const Total = ({ parts }) => {
   return (
     <b>
-      total of {parts.reduce((sum, part) => {
-        return sum + part.exercises
-      }, 0)} exercises
+      total of <CalculateTotal parts={parts} /> exercises
     </b>
+  )
+}
+
+const CalculateTotal = ({ parts }) => {
+  return(
+    parts.reduce((sum, part) => {
+      return sum + part.exercises
+    }, 0)
   )
 }
 
