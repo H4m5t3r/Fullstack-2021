@@ -19,10 +19,14 @@ function App() {
     setNewFilter(event.target.value)
   }
 
+  const handleShowCountry = (event) => {
+    setNewFilter(event.target.value)
+  }
+
   return (
     <div>
       <Search filter={filter} handleFilterChange={handleFilterChange} />
-      <Countries filteredList={filteredList} />
+      <Countries filteredList={filteredList} handleShowCountry={handleShowCountry} />
     </div>
   );
 }
@@ -37,7 +41,7 @@ const Search = ({ filter, handleFilterChange }) => {
   )
 }
 
-const Countries = ({ filteredList }) => {
+const Countries = ({ filteredList, handleShowCountry }) => {
   if (filteredList.length > 10) {
     return(
       <div>Too many matches, specify another filter</div>
@@ -50,15 +54,17 @@ const Countries = ({ filteredList }) => {
   return (
     <li>
       {filteredList.map(country => 
-        <Country key={country.name} country={country} />
+        <Country key={country.name} country={country} handleShowCountry={handleShowCountry} />
       )}
     </li>
   )
 }
 
-const Country = ({ country }) => {
+const Country = ({ country, handleShowCountry }) => {
   return (
-    <div>{country.name}</div>
+    <div>
+      {country.name} <button value={country.name} onClick={handleShowCountry}>show</button>
+    </div>
   )
 }
 
@@ -67,25 +73,25 @@ const DetailedCountry = ({ country }) => {
     <div>
       <h1>{country.name}</h1>
       <p>
-        <div>capital {country.capital}</div>
-        <div>population {country.population}</div>
+        <li>capital {country.capital}</li>
+        <li>population {country.population}</li>
       </p>
       <h2>languages</h2>
       <ul>
-        <Languages languages={country.languages} />
+        <div>
+          {country.languages.map(language => 
+            <Language key={language.name} name={language.name} />
+          )}
+        </div>
       </ul>
       <Flag flag={country.flag} />
     </div>
 
   )
 }
-const Languages = ({ languages }) => {
+const Language = ({ name }) => {
   return (
-    <li>
-      {languages.map(language => 
-        <li>{language.name}</li>
-      )}
-    </li>
+    <li>{name}</li>
   )
 }
 
