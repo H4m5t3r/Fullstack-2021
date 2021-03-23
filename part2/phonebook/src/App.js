@@ -10,6 +10,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setNewFilter ] = useState('')
+  const list = persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -21,6 +22,7 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
+    console.log(list);
   }
   
   const addPerson = (event) => {
@@ -37,6 +39,17 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
     }
   }
+
+  // const applyFilter = (filter, persons) => {
+  //   if (filter === '') {
+  //     return persons
+  //   } else {
+  //     persons.filter(person => {
+  //       person.name.includes(filter)
+  //     })
+  //     return persons
+  //   }
+  // }
 
   return (
     <div>
@@ -65,7 +78,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <li>
-        {persons.map(person => 
+        {list.map(person => 
           <Person key={person.name} person={person} />
         )}
       </li>
