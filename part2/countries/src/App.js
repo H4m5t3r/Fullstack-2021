@@ -86,6 +86,7 @@ const DetailedCountry = ({ country }) => {
       </ul>
       <Flag flag={country.flag} />
       <h2>Weather in {country.capital}</h2>
+      <Weather  />
     </div>
   )
 }
@@ -98,6 +99,14 @@ const Language = ({ name }) => {
 const Flag = ({ flag }) => {
   return(
       <img src={flag} alt="The country's flag" height="100" max-width="200"></img>
+  )
+}
+
+const Weather = ({  }) => {
+  return (
+    <div>
+      <b>temperature:</b> 
+    </div>
   )
 }
 
