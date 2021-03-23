@@ -22,7 +22,6 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
-    console.log(list);
   }
   
   const addPerson = (event) => {
@@ -40,29 +39,40 @@ const App = () => {
     }
   }
 
-  // const applyFilter = (filter, persons) => {
-  //   if (filter === '') {
-  //     return persons
-  //   } else {
-  //     persons.filter(person => {
-  //       person.name.includes(filter)
-  //     })
-  //     return persons
-  //   }
-  // }
-
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
-        <div>
-          filter shown with <input
-          value={filter}
-          onChange={handleFilterChange} />
-        </div>
+        <Filter filter={filter} handleFilterChange={handleFilterChange} />
       </form>
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
+      <PersonForm addPerson={addPerson} newName={newName} newNumber={newNumber} 
+      handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
+      <h2>Numbers</h2>
+      <Persons list={list} />
+    </div>
+  )
+}
+
+const Person = ({ person }) => {
+  return (
+    <div>{person.name} {person.number}</div>
+  )
+}
+
+const Filter = ({ filter, handleFilterChange }) => {
+  return (
+    <div>
+      filter shown with <input
+      value={filter}
+      onChange={handleFilterChange} />
+    </div>
+  )
+}
+
+const PersonForm = ({ addPerson, newName, newNumber, handleNameChange, handleNumberChange }) => {
+  return (
+    <form onSubmit={addPerson}>
         <div>
           name: <input
           value={newName}
@@ -76,19 +86,16 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
-      <li>
-        {list.map(person => 
-          <Person key={person.name} person={person} />
-        )}
-      </li>
-    </div>
   )
 }
 
-const Person = ({ person }) => {
+const Persons = ({ list }) => {
   return (
-    <div>{person.name} {person.number}</div>
+    <li>
+      {list.map(person => 
+        <Person key={person.name} person={person} />
+      )}
+    </li>
   )
 }
 
