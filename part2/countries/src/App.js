@@ -85,8 +85,8 @@ const DetailedCountry = ({ country }) => {
         </div>
       </ul>
       <Flag flag={country.flag} />
+      <h2>Weather in {country.capital}</h2>
     </div>
-
   )
 }
 const Language = ({ name }) => {
