@@ -11,14 +11,22 @@ const create = newObject => {
   return request.then(response => response.data)
 }
 
-const update = (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject)
+// const update = (id, newObject) => {
+//   const request = axios.put(`${baseUrl}/${id}`, newObject)
+//   return request.then(response => response.data)
+// }
+
+const deletePerson = idToDelete => {
+  const request = axios.delete(`${baseUrl}/${idToDelete}`)
   return request.then(response => response.data)
+  .catch(error => {
+      console.log('fail')
+  })
 }
 
 const toExport = { 
   getAll: getAll, 
-  create: create, 
-  update: update
+  create: create,
+  delete: deletePerson
 }
 export default toExport

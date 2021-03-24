@@ -47,6 +47,15 @@ const App = () => {
     }
   }
 
+  const deletePerson = (event) => {
+    event.preventDefault()
+    personService
+      .delete(event.target.value)
+      .then(() => {
+        setPersons(persons.filter(({id}) => parseInt(id) !== parseInt(event.target.value)))
+      })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -57,14 +66,16 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} newNumber={newNumber} 
       handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons list={list} />
+      <Persons list={list} deletePerson={deletePerson} />
     </div>
   )
 }
 
-const Person = ({ person }) => {
+const Person = ({ person, deletePerson }) => {
   return (
-    <div>{person.name} {person.number}</div>
+    <div>
+      {person.name} {person.number} <button value={person.id} onClick={deletePerson}>delete</button>
+      </div>
   )
 }
 
@@ -97,11 +108,11 @@ const PersonForm = ({ addPerson, newName, newNumber, handleNameChange, handleNum
   )
 }
 
-const Persons = ({ list }) => {
+const Persons = ({ list, deletePerson }) => {
   return (
     <li>
       {list.map(person => 
-        <Person key={person.name} person={person} />
+        <Person key={person.name} person={person} deletePerson={deletePerson} />
       )}
     </li>
   )
