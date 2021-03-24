@@ -19,9 +19,6 @@ const create = newObject => {
 const deletePerson = idToDelete => {
   const request = axios.delete(`${baseUrl}/${idToDelete}`)
   return request.then(response => response.data)
-  .catch(error => {
-      console.log('fail')
-  })
 }
 
 const toExport = { 

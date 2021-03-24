@@ -7,7 +7,8 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setNewFilter ] = useState('')
   const list = persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
-  const [notification, setNotification] = useState(null)
+  const [successNotification, setSuccessNotification] = useState(null)
+  const [errorNotification, setErrorNotification] = useState(null)
 
   useEffect(() => {
     personService
@@ -39,9 +40,9 @@ const App = () => {
       personService
         .create(personObject)
         .then(returnedPerson => {
-          setNotification(`Added ${returnedPerson.name}`)
+          setSuccessNotification(`Added ${returnedPerson.name}`)
           setTimeout(() => {
-            setNotification(null)
+            setSuccessNotification(null)
           }, 5000)
           setPersons(persons.concat(returnedPerson))
           setNewName('')
@@ -60,12 +61,24 @@ const App = () => {
       .then(() => {
         setPersons(persons.filter(({id}) => parseInt(id) !== parseInt(event.target.value)))
       })
+      .catch(error => {
+        setErrorNotification(
+          `Information of 
+          ${persons.filter(({ id }) => parseInt(id) === parseInt(event.target.value))[0].name} 
+          has already been removed from the server`
+        )
+        setTimeout(() => {
+          setErrorNotification(null)
+        }, 5000)
+        setPersons(persons.filter(({id}) => parseInt(id) !== parseInt(event.target.value)))
+      })
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} />
+      <SuccessNotification message={successNotification} />
+      <ErrorNotification message={errorNotification} />
       <form>
         <Filter filter={filter} handleFilterChange={handleFilterChange} />
       </form>
@@ -125,13 +138,25 @@ const Persons = ({ list, deletePerson }) => {
   )
 }
 
-const Notification = ({ message }) => {
+const SuccessNotification = ({ message }) => {
   if (message === null) {
     return null
   }
 
   return (
     <div className="successful">
+      {message}
+    </div>
+  )
+}
+
+const ErrorNotification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="error">
       {message}
     </div>
   )
