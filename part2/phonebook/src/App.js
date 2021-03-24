@@ -49,6 +49,7 @@ const App = () => {
 
   const deletePerson = (event) => {
     event.preventDefault()
+    if (window.confirm(`Delete ${persons.filter(({ id }) => parseInt(id) === parseInt(event.target.value))[0].name}?`))
     personService
       .delete(event.target.value)
       .then(() => {
