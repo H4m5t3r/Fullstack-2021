@@ -7,6 +7,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setNewFilter ] = useState('')
   const list = persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     personService
@@ -38,6 +39,10 @@ const App = () => {
       personService
         .create(personObject)
         .then(returnedPerson => {
+          setNotification(`Added ${returnedPerson.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
@@ -60,6 +65,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       <form>
         <Filter filter={filter} handleFilterChange={handleFilterChange} />
       </form>
@@ -116,6 +122,18 @@ const Persons = ({ list, deletePerson }) => {
         <Person key={person.name} person={person} deletePerson={deletePerson} />
       )}
     </li>
+  )
+}
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="successful">
+      {message}
+    </div>
   )
 }
 
