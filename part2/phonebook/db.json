@@ -6,9 +6,14 @@
       "id": 1
     },
     {
+      "id": 6,
       "name": "Dr. Trayaurus",
-      "number": "498320947",
-      "id": 6
+      "number": "432"
+    },
+    {
+      "id": 7,
+      "name": "Ada Lovelace",
+      "number": "67342645"
     }
   ]
 }
