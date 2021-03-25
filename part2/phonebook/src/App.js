@@ -32,7 +32,7 @@ const App = () => {
   
   const addPerson = (event) => {
     event.preventDefault()
-    if (!(persons.some(person => person.name === newName))) {
+    // if (!(persons.some(person => person.name === newName))) {
       const personObject = {
         name: newName,
         number: newNumber
@@ -48,26 +48,27 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
-    } else {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const personObject = {
-          id: persons.filter(person => person.name === newName)[0].id,
-          name: newName,
-          number: newNumber
-        }
-        personService
-          .update(personObject.id, personObject)
-          .then(returnedPerson => {
-            setSuccessNotification(`Updated ${returnedPerson.name}`)
-            setTimeout(() => {
-              setSuccessNotification(null)
-            }, 5000)
-            setPersons(persons.map(person => person.id !== personObject.id ? person : returnedPerson))
-            setNewName('')
-            setNewNumber('')
-          })
-      }
-    }
+    // }
+    // else {
+    //   if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+    //     const personObject = {
+    //       id: persons.filter(person => person.name === newName)[0].id,
+    //       name: newName,
+    //       number: newNumber
+    //     }
+    //     personService
+    //       .update(personObject.id, personObject)
+    //       .then(returnedPerson => {
+    //         setSuccessNotification(`Updated ${returnedPerson.name}`)
+    //         setTimeout(() => {
+    //           setSuccessNotification(null)
+    //         }, 5000)
+    //         setPersons(persons.map(person => person.id !== personObject.id ? person : returnedPerson))
+    //         setNewName('')
+    //         setNewNumber('')
+    //       })
+    //   }
+    // }
   }
 
   const deletePerson = (event) => {
