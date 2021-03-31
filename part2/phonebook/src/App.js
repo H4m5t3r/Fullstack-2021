@@ -73,22 +73,22 @@ const App = () => {
 
   const deletePerson = (event) => {
     event.preventDefault()
-    if (window.confirm(`Delete ${persons.filter(({ id }) => parseInt(id) === parseInt(event.target.value))[0].name}?`))
+    if (window.confirm(`Delete ${persons.filter(({ id }) => id === event.target.value)[0].name}?`))
     personService
       .delete(event.target.value)
       .then(() => {
-        setPersons(persons.filter(({id}) => parseInt(id) !== parseInt(event.target.value)))
+        setPersons(persons.filter(({id}) => id !== event.target.value))
       })
       .catch(error => {
         setErrorNotification(
           `Information of 
-          ${persons.filter(({ id }) => parseInt(id) === parseInt(event.target.value))[0].name} 
+          ${persons.filter(({ id }) => id === event.target.value)[0].name} 
           has already been removed from the server`
         )
         setTimeout(() => {
           setErrorNotification(null)
         }, 5000)
-        setPersons(persons.filter(({id}) => parseInt(id) !== parseInt(event.target.value)))
+        setPersons(persons.filter(({id}) => id !== event.target.value))
       })
   }
 
